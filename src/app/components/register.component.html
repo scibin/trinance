@@ -1,0 +1,81 @@
+<div class='everything'>
+<form #form="ngForm" (ngSubmit)="register(form)">
+    <h3>Register an account</h3>
+    <mat-form-field class='email'>
+        <input matInput name='email' #email="ngModel"
+        placeholder="Email" ngModel required email>
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div class="errMsg" *ngIf="email.errors['required']">
+                <span>Please fill in your email!</span>
+            </div>
+            <div class="errMsg" *ngIf="email.errors['email']">
+                <span>Please fill in a valid email!</span>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class='password'>
+        <input matInput name='password' #password="ngModel"
+        placeholder='Password' type='password' ngModel required
+        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%^&*()]).{8,16}">
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div class="errMsg" *ngIf="password.errors['required']">
+                <span>Please fill in your password!</span>
+            </div>
+            <div class="errMsg" *ngIf="password.errors['pattern']">
+                <span>Your password must be between 8 - 16 characters long,
+                    use both uppercase and lowercase letters,
+                    include one or more numerical digits,
+                    and include one special character
+                </span>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="first_name">
+        <input matInput name='first_name' #first_name="ngModel" 
+        placeholder='First Name' ngModel required
+        pattern="(?![\s.]+$)[a-zA-z\s]*">
+        <mat-error *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
+            <div class="errMsg" *ngIf="first_name.errors['required']">
+                <span>Please fill in your first name!</span>
+            </div>
+            <div class="errMsg" *ngIf="first_name.errors['pattern']">
+                <span>Only alphabets and spaces are allowed</span>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="last_name">
+        <input matInput name='last_name' #last_name="ngModel" 
+        placeholder='Last Name' ngModel required
+        pattern="(?![\s.]+$)[a-zA-z\s]*">
+        <mat-error *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
+            <div class="errMsg" *ngIf="last_name.errors['required']">
+                <span>Please fill in your last name!</span>
+            </div>
+            <div class="errMsg" *ngIf="last_name.errors['pattern']">
+                <span>Only alphabets and spaces are allowed</span>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-checkbox ngModel name='checkbox' required></mat-checkbox>
+    <div class='checkbox'>
+        <span>
+            By clicking on the register button below, 
+            you confirm that you are not a US citizen 
+            and you are at least 21 years of age
+        </span>
+    </div>
+    <br>
+    <button type="submit" [disabled]="form.invalid"
+    mat-raised-button color="primary">Register</button>
+    <button type="reset"
+    mat-raised-button color="basic">Reset</button>
+    <br>
+    <div *ngIf="registrationStatus == 1">
+        <span style="color: crimson;">Email has already been registered!</span>
+    </div>
+</form>
+</div>

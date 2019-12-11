@@ -1,0 +1,44 @@
+<form #form="ngForm" (ngSubmit)="login(form)">
+    <h3>Log into your account</h3>
+    <mat-form-field class='email'>
+        <input matInput name='email' #email="ngModel"
+        placeholder="Email" ngModel required email>
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div class="errMsg" *ngIf="email.errors['required']">
+                <span>Please fill in your email!</span>
+            </div>
+            <div class="errMsg" *ngIf="email.errors['email']">
+                <span>Please fill in a valid email!</span>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class='password'>
+        <input matInput name='password' #password="ngModel"
+        placeholder='Password' type='password' ngModel required>
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div class="errMsg" *ngIf="password.errors['required']">
+                <span>Please fill in your password!</span>
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-checkbox ngModel name='checkbox'> Remember me</mat-checkbox>
+    <br>
+    <br>
+    <button type="submit" [disabled]="form.invalid"
+    mat-raised-button color="primary">Login</button>
+    <button type="reset"
+    mat-raised-button color="basic">Reset</button>
+    <br>
+    <div *ngIf="loginStatus == 1">
+        <span style="color: crimson;">Wrong email/password!</span>
+        <br>
+        <span style="color: crimson;">Please try again.</span>
+    </div>
+    <div *ngIf="loginStatus == 2">
+        <span style="color: crimson;">Internal server error!</span>
+        <br>
+        <span style="color: crimson;">Please try again.</span>
+    </div>
+</form>

@@ -1,0 +1,12 @@
+.everything {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox {
+    width: 40vw;
+    height: auto;
+    word-wrap: normal;
+    text-align: justify;
+}

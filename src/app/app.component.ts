@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AccessService } from './services/access.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'trinance';
+
+  constructor(private accSvc: AccessService, private router: Router) {}
+
+  logout() {
+    this.accSvc.logout();
+    this.router.navigate(['/']);
+  }
 }

@@ -1,0 +1,13 @@
+.getStarted {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.matHeader {
+  height: 90px;
+}
+
+.example-card {
+    max-width: 150px;
+}
