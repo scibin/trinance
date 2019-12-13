@@ -1,1 +1,50 @@
-<p>withdrawal works!</p>
+<h2>Withdraw your funds</h2>
+<br>
+<form #form="ngForm" (ngSubmit)="withdraw(form)">
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span (click)="changeToFiat()">Fiat</span>
+            </ng-template>
+            <div *ngIf="isFiat">
+                <h3>Withdraw fiat</h3>
+                <br>
+                <span>Amount of fiat available for withdrawal: <i>{{ currentFiat }}</i> USD</span>
+                <br>
+                <input type="hidden" name='type' [(ngModel)]='type'>
+                <input matInput name='paypalEmail' #paypalEmail="ngModel" type="text"
+                    placeholder="Enter your PayPal email" ngModel required>
+                <br>
+                <input matInput name='fiatAmt' #ethAmount="ngModel" type="number" [min]="10"
+                    step="0.01" placeholder="Amount of fiat" ngModel required>
+                <br>
+                <button type="submit" [disabled]="form.invalid"
+                mat-raised-button color="primary">Withdraw fiat</button>
+                <span>{{ fiatWithdrawalStatus }}</span>
+            </div>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span (click)="changeToEth()">Ethereum</span>
+            </ng-template>
+            <div *ngIf="!isFiat">
+                <h3>Withdraw ethereum</h3>
+                <br>
+                <span>Amount of eth available for withdrawal: <i>{{ currentEth }}</i> eth</span>
+                <br>
+                <input type="hidden" name='type' [(ngModel)]='type'>
+                <input matInput name='ethAddress' #ethAddress="ngModel" type="text"
+                    placeholder="Enter your eth address" ngModel required>
+                <br>
+                <input matInput name='ethAmount' #ethAmount="ngModel" type="number" [min]="0.01"
+                    step="0.001" placeholder="Amount of eth" ngModel required>
+                <br>
+                <button type="submit" [disabled]="form.invalid"
+                mat-raised-button color="primary">Withdraw eth</button>
+                <span>{{ ethWithdrawalStatus }}</span>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</form>
+

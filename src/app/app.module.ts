@@ -24,7 +24,8 @@ import { TradeComponent } from './components/user/trade.component';
 import { HistoryComponent } from './components/user/history.component';
 import { FavouritesComponent } from './components/user/favourites.component';
 import { TokenInterceptor } from './services/token.interceptor';
-
+import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import { TokenInterceptor } from './services/token.interceptor';
     MaterialModule,
     PrimeNgModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ClipboardModule,
+    NgxPayPalModule
   ],
   providers: [
     AccessService,

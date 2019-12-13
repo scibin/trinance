@@ -1,1 +1,39 @@
-<p>deposit works!</p>
+<h2>Fund your account</h2>
+<br>
+
+<h3>Deposit fiat</h3>
+
+<div>
+    <form #form="ngForm" (ngSubmit)="activatePayPal(form)" *ngIf="!fundClicked">
+        <input matInput name='fiatAmount' #ethAmount="ngModel" type="number"
+            placeholder="Minimum 10 USD" ngModel required [min]=10 step="0.01">
+        <button type="submit" [disabled]="form.invalid"
+        mat-raised-button color="primary">Fund</button>
+    </form>
+</div>
+<span>{{ statusText }}</span>
+<br>
+<div class='paypalbuttons'>
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+</div>
+
+<br>
+<hr>
+<br>
+
+<h3>Deposit ethereum</h3>
+
+<span>Deposit your ethereum into this address:</span>
+<br>
+<code class='ethAdd'>{{ userEthereumAddress }}</code>
+<mat-icon class="material-icons-outlined clip-icon" 
+    (click)="copyToClipboard()" matTooltip="Copy to clipboard"
+    ngxClipboard [cbContent]="userEthereumAddress">file_copy</mat-icon>
+<br><br>
+<span>
+    After the transaction is successful, please press the button below:
+</span>
+<br>
+<button mat-stroked-button color="primary" (click)="updateEth()">Update balance in account</button>
+<br>
+<span class='eth_notification'>{{ ethDepositStatus }}</span>

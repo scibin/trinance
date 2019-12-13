@@ -4,7 +4,7 @@
     <span>Trinance</span>
     <span class="example-spacer"></span>
 
-    <button mat-button [matMenuTriggerFor]="menu">!!!First Name</button>
+    <button mat-button [matMenuTriggerFor]="menu">{{ displayName }}</button>
     <mat-menu #menu="matMenu">
       <button mat-stroked-button color="basic" [routerLink]="['/user/dashboard']">Dashboard</button>
       <button mat-stroked-button color="basic" [routerLink]="['/user/profile']">Profile</button>
