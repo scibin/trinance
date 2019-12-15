@@ -1,15 +1,29 @@
-<h3>Access: </h3>
-<br>
-
-<button mat-stroked-button color="basic" [routerLink]="['/user/profile']">Profile</button>
-<br>
-<button mat-stroked-button color="basic" [routerLink]="['/user/history']">History</button>
-<br>
-<button mat-stroked-button color="basic" [routerLink]="['/user/favourites']">Favourites</button>
-<br>
-<button mat-stroked-button color="basic" [routerLink]="['/user/deposit']">Deposit</button>
-<br>
-<button mat-stroked-button color="basic" [routerLink]="['/user/withdrawal']">Withdrawal</button>
-<br>
-<button mat-stroked-button color="basic" [routerLink]="['/user/trade']">Trade</button>
-<br>
+<div class='titles'>
+    <h3>Navigation: </h3>
+</div>
+<div class='navigation_buttons'>
+    <button mat-stroked-button color="basic" [routerLink]="['/user/profile']">Profile</button>
+    <button mat-stroked-button color="basic" [routerLink]="['/user/history']">History</button>
+    <button mat-stroked-button color="basic" [routerLink]="['/user/favourites']">Favourites</button>
+    <button mat-stroked-button color="basic" [routerLink]="['/user/deposit']">Deposit</button><br>
+    <button mat-stroked-button color="basic" [routerLink]="['/user/withdrawal']">Withdrawal</button>
+    <button mat-stroked-button color="basic" [routerLink]="['/user/trade']">Trade</button>
+</div>
+<div class='titles'>
+    <h3>Your account balances: </h3>
+</div>
+<mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile [style.background]="'#F7D4DC'">
+        <div><h4>Fiat: {{ balances.fiat }} USD</h4></div>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'#FC7307'">
+        <div><h4>Ethereum: {{ balances.eth }} ETH</h4></div>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'#559E54'">
+        <div><h4>Santa: {{ balances.santa }} SANTA</h4></div>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'#D61A46'">
+        <div><h4>Claus: {{ balances.claus }} CLAUS</h4></div>
+    </mat-grid-tile>
+</mat-grid-list>
+      

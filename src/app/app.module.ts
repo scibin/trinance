@@ -14,7 +14,7 @@ import { AccessService } from './services/access.service';
 import { EthService } from './services/eth.service';
 import { MaterialModule } from './material.module';
 import { PrimeNgModule } from './primeng.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login.component';
 import { ProfileComponent } from './components/user/profile.component';
@@ -26,6 +26,8 @@ import { FavouritesComponent } from './components/user/favourites.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { ClipboardService, ClipboardModule } from 'ngx-clipboard';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -49,9 +51,10 @@ import { NgxPayPalModule } from 'ngx-paypal';
     MaterialModule,
     PrimeNgModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ClipboardModule,
-    NgxPayPalModule
+    NgxPayPalModule,ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AccessService,

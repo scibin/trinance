@@ -12,11 +12,15 @@
                 <span>Amount of fiat available for withdrawal: <i>{{ currentFiat }}</i> USD</span>
                 <br>
                 <input type="hidden" name='type' [(ngModel)]='type'>
-                <input matInput name='paypalEmail' #paypalEmail="ngModel" type="text"
+                <mat-form-field class="example-full-width" style="width:20vw">
+                    <input matInput name='paypalEmail' #paypalEmail="ngModel" type="text"
                     placeholder="Enter your PayPal email" ngModel required>
+                </mat-form-field>
                 <br>
-                <input matInput name='fiatAmt' #ethAmount="ngModel" type="number" [min]="10"
+                <mat-form-field class="example-full-width" style="width:20vw">
+                    <input matInput name='fiatAmt' #ethAmount="ngModel" type="number" [min]="10"
                     step="0.01" placeholder="Amount of fiat" ngModel required>
+                </mat-form-field>
                 <br>
                 <button type="submit" [disabled]="form.invalid"
                 mat-raised-button color="primary">Withdraw fiat</button>
@@ -34,11 +38,15 @@
                 <span>Amount of eth available for withdrawal: <i>{{ currentEth }}</i> eth</span>
                 <br>
                 <input type="hidden" name='type' [(ngModel)]='type'>
-                <input matInput name='ethAddress' #ethAddress="ngModel" type="text"
+                <mat-form-field class="example-full-width" style="width:20vw">
+                    <input matInput name='ethAddress' #ethAddress="ngModel" type="text"
                     placeholder="Enter your eth address" ngModel required>
+                </mat-form-field>
                 <br>
-                <input matInput name='ethAmount' #ethAmount="ngModel" type="number" [min]="0.01"
+                <mat-form-field class="example-full-width" style="width:20vw">
+                    <input matInput name='ethAmount' #ethAmount="ngModel" type="number" [min]="0.01"
                     step="0.001" placeholder="Amount of eth" ngModel required>
+                </mat-form-field>
                 <br>
                 <button type="submit" [disabled]="form.invalid"
                 mat-raised-button color="primary">Withdraw eth</button>

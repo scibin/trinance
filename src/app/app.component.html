@@ -1,22 +1,28 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon" [routerLink]="['/']">favorite</mat-icon>
-    <span>Trinance</span>
+    <span class='trinance' [routerLink]="['/']">Trinance</span>
     <span class="example-spacer"></span>
 
-    <button mat-button [matMenuTriggerFor]="menu">{{ displayName }}</button>
-    <mat-menu #menu="matMenu">
+    <div *ngIf="userStatus">
       <button mat-stroked-button color="basic" [routerLink]="['/user/dashboard']">Dashboard</button>
-      <button mat-stroked-button color="basic" [routerLink]="['/user/profile']">Profile</button>
-      <button mat-stroked-button color="basic" [routerLink]="['/user/history']">History</button>
-      <button mat-stroked-button color="basic" [routerLink]="['/user/favourites']">Favourites</button>
-      <button mat-stroked-button color="basic" (click)="logout()">Logout</button>
-    </mat-menu>
-
-    <button mat-stroked-button color="basic" [routerLink]="['/register']">Register</button>
-    <button mat-stroked-button color="basic" [routerLink]="['/login']">Login</button>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+      <button mat-button [matMenuTriggerFor]="menu">{{ displayName }}</button>
+      <mat-menu #menu="matMenu">
+        <button class='matMenu' mat-stroked-button color="basic" [routerLink]="['/user/profile']">Profile</button>
+        <br>
+        <button class="matMenu" mat-stroked-button color="basic" [routerLink]="['/user/history']">History</button>
+        <br>
+        <button class="matMenu" mat-stroked-button color="basic" [routerLink]="['/user/favourites']">Favourites</button>
+        <br>
+        <button class="matMenu" mat-stroked-button color="basic" (click)="logout()">Logout</button>
+      </mat-menu>
+    </div>
+    <div *ngIf="!userStatus">
+      <button mat-stroked-button color="basic" [routerLink]="['/login']">Login</button>  
+      <button class='register' mat-stroked-button color="basic" [routerLink]="['/register']">Register</button>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class='main_content'>
+  <router-outlet></router-outlet>
+</div>

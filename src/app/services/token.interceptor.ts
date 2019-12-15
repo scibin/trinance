@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { 
+import {
     HttpInterceptor,
     HttpRequest,
     HttpHandler,
@@ -10,19 +10,19 @@ import { Observable } from 'rxjs';
 // import {  } from 'rxjs/Observable';
 
 
-@Injectable() 
+@Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
     constructor(private accSvc: AccessService) {}
 
-    // Http interceptor references:
+    // Attribution for http interceptor references:
     // https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8
     // https://blog.angular-university.io/angular-jwt-authentication/
 
     intercept(request: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
 
-        const idToken = localStorage.getItem("access_token");
+        const idToken = localStorage.getItem('access_token');
 
         if (idToken) {
             const cloned = request.clone({

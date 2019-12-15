@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EthService } from '../services/eth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  balances = {
+    eth: 0,
+    fiat: 0,
+    santa: 0,
+    claus: 0
+  };
+
+  constructor(private ethSvc: EthService) { }
 
   ngOnInit() {
+    this.ethSvc.getCurrentUserAccEthAndFiat()
+      .then(result => {
+        this.balances = {
+          eth: result.eth,
+          fiat: result.fiat,
+          santa: result.santa,
+          claus: result.claus
+        };
+      })
+      .then(err => {});
   }
 
 }

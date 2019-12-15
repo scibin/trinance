@@ -25,6 +25,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
+  MatPaginatorModule
 } from '@angular/material';
 
 // import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -55,7 +56,8 @@ const modulesList = [
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatInputModule
+  MatInputModule,
+  MatPaginatorModule
 ];
 
 @NgModule({

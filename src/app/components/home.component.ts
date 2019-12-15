@@ -14,15 +14,4 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
   }
-
-  // !!! Delete later when production ready!
-  test() {
-    this.accSvc.test()
-      .then(result => {
-        console.log('>>> result of test(): ', result);
-      })
-      .catch(err => {
-        console.log('>>> err of test(): ', err);
-      })
-  }
 }

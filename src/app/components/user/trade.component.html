@@ -1,1 +1,76 @@
-<p>trade works!</p>
+<h2>Trade Ethereum</h2>
+<br>
+<form #form="ngForm" (ngSubmit)="trade(form)">
+        <mat-tab-group>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span (click)="changeToBuyEth()">Buy</span>
+                    </ng-template>
+                    <div *ngIf="type == 'ethBuy'">
+                        <h3>Buy ETH</h3>
+                        <input type="hidden" name='type' [(ngModel)]='type'>
+                        <input type="hidden" name='ethBuyTotal' [(ngModel)]='ethBuyTotal'>
+                        <table>
+                            <tr>
+                                <td>Price:</td>
+                                <td>{{ showAsFloat(ethBuyPrice) }} USD</td>
+                            </tr>
+                            <tr>
+                                <td>Amount:</td>
+                                <td>
+                                    <mat-form-field class="example-full-width" style="width:15vw">
+                                        <input matInput name='amtOfEthToBuy' [(ngModel)]='amtOfEthToBuy' type="number"
+                                        placeholder="" (keyup)="calculateBuyEthTotal()" [min]="0.001" step="0.001"
+                                        (input)="calculateBuyEthTotal()" required>
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total:</td>
+                                <td>{{ showAsFloat(ethBuyTotal) }} USD</td>
+                            </tr>
+                        </table>
+                        <button type="submit" [disabled]="form.invalid"
+                        mat-raised-button color="primary">Buy</button>
+                        <br>
+                        <span>{{ buyStatus }}</span>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <span (click)="changeToSellEth()">Sell</span>
+                    </ng-template>
+                    <div *ngIf="type == 'ethSell'">
+                        <h3>Sell ETH</h3>
+                        <input type="hidden" name='type' [(ngModel)]='type'>
+                        <input type="hidden" name='ethSellTotal' [(ngModel)]='ethSellTotal'>
+                        <table>
+                            <tr>
+                                <td>Price:</td>
+                                <td>{{ showAsFloat(ethSellPrice) }} USD</td>
+                            </tr>
+                            <tr>
+                                <td>Amount:</td>
+                                <td>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput name='amtOfEthToSell' [(ngModel)]='amtOfEthToSell' type="number"
+                                        placeholder="" (keyup)="calculateSellEthTotal()" [min]="0.001" step="0.001"
+                                        (input)="calculateSellEthTotal()" required>
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total:</td>
+                                <td>{{ showAsFloat(ethSellTotal) }} USD</td>
+                            </tr>
+                        </table>
+                        <button type="submit" [disabled]="form.invalid"
+                        mat-raised-button color="primary">Sell</button>
+                        <br>
+                        <span>{{ sellStatus }}</span>
+                    </div>
+                </mat-tab>
+
+        </mat-tab-group>
+</form>

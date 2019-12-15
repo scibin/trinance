@@ -1,0 +1,7 @@
+.delete_button, .link_button {
+    cursor: pointer;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+}

@@ -38,7 +38,7 @@ export class WithdrawalComponent implements OnInit {
   }
 
   withdraw(form: NgForm) {
-    if (form.value.type == 'fiat') {
+    if (form.value.type === 'fiat') {
       // process fiat
       this.fiatSvc.processUserFiatWithdrawal(form.value.paypalEmail, form.value.fiatAmt)
       .then(result => {
@@ -47,7 +47,7 @@ export class WithdrawalComponent implements OnInit {
       .catch(err => {
         this.fiatWithdrawalStatus = 'Something went wrong, please try again';
       });
-    } else if (form.value.type == 'eth') {
+    } else if (form.value.type === 'eth') {
       // process eth
       this.ethSvc.processUserEthWithdrawal(form.value.ethAddress, form.value.ethAmount)
       .then(result => {

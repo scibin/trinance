@@ -1,1 +1,57 @@
-<p>favourites works!</p>
+<h1>Favourites</h1>
+<hr>
+<span>Note: Balances are Ropsten testnet balances</span>
+<form [formGroup]="favForm" (ngSubmit)="updateFavourites()">
+    <!-- <span>Email: </span><input type="email" name='email' size='48'
+    placeholder="Your email"
+    formControlName="email"> -->
+    <br>
+    <button type="button" mat-stroked-button color="warn" (click)="toggleForm()">Edit favourites</button>
+    <button mat-stroked-button color="warn" type="submit" 
+    [disabled]="favForm.invalid || (faveDetails.length <= 0) || (!canEditForm)">Update favourites</button>
+    <hr>
+    <h3 *ngIf="faveDetails.length === 0">Your favourites list is empty!!</h3>
+    <h3 *ngIf="loadErrMsg">{{ loadErrMsg }}</h3>
+    <table border="1" *ngIf="faveDetails.length > 0">
+        <thead>
+            <tr>
+                <th>Tag</th>
+                <th>Eth address</th>
+                <th>Link</th>
+                <th>Balance</th>
+                <th>Notes</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody formArrayName="faveDetails">
+            <tr *ngFor="let od of faveDetails.controls; let i = index;" [formGroupName]="i">
+                <td>
+                    <mat-form-field>
+                        <input matInput placeholder="" type="text" formControlName="tag">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput placeholder="" type="text" formControlName="ethAddress">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <a href="https://etherscan.io/address/{{ faveDetails.value[i].ethAddress || '' }}"><mat-icon class='link_button'>link</mat-icon></a>
+                </td>
+                <td>
+                    <span>{{ faveDetails.value[i].balance || '' }}</span>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input matInput placeholder="" type="text" formControlName="notes">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-icon (click)="deleteItem(i)" class='delete_button'>close</mat-icon>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" mat-stroked-button color="warn" *ngIf="canEditForm"
+    (click)="addfaveDetails()" [disabled]="!canEditForm">Add a new entry</button>
+</form>

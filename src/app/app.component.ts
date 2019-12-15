@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AccessService } from './services/access.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'trinance';
 
   private userStatusSub: Subscription;
@@ -22,7 +22,7 @@ export class AppComponent {
       if (ev instanceof NavigationEnd) {
         this.userStatus = this.accSvc.isLoggedIn();
       }
-    })
+    });
     this.firstNameSub = this.accSvc.getFirstName().subscribe(data => {
       // Update the display name
       this.displayName = data;

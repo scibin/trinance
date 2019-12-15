@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { NgForm } from '@angular/forms';
 import { FiatService } from 'src/app/services/fiat.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-deposit',
@@ -18,12 +19,8 @@ export class DepositComponent implements OnInit {
   fiatAmount = 10;
   fundClicked = false;
   statusText: string;
-  // Personal
-  // sb-biwec701405@personal.example.com
-  // )yC@&1k3
-  // Business
-  // sb-ngv98703568@business.example.com
-  // B^rv^p#2
+  fiatDepositStatus = '';
+
   // For Ethereum
   userEthereumAddress = '';
   ethDepositStatus = '';
@@ -38,7 +35,7 @@ export class DepositComponent implements OnInit {
       })
       .catch(err => {
         this.userEthereumAddress = 'Oops something went wrong, please try again';
-      })
+      });
   }
 
   copyToClipboard() {
@@ -53,18 +50,21 @@ export class DepositComponent implements OnInit {
         this.ethDepositStatus = 'Deposit is successful!';
       })
       .catch(err => {
-        this.ethDepositStatus = 'Something went wrong, please try again.'
-      })
+        this.ethDepositStatus = 'Something went wrong, please try again.';
+      });
+  }
+
+  updateFiatDepositStatus(status: string) {
+    this.fiatDepositStatus = status;
   }
 
   // For paypal
   private initConfig(): void {
     this.payPalConfig = {
       currency: 'USD',
-      // !!! Hide this later
-      clientId: 'AVkl-fDIc7GqqCLgsvFB8tKXG02iMnW-GIUUggLXZZSvqgRxtGO_PuqINl8-9B0s2j7LCDIYkavxwGHI',
+      clientId: environment.paypalClientID,
       // clientId: 'sb',
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
+      createOrderOnClient: (data) => <ICreateOrderRequest> {
         intent: 'CAPTURE',
         purchase_units: [
           {
@@ -89,33 +89,28 @@ export class DepositComponent implements OnInit {
         layout: 'vertical'
       },
       onApprove: (data, actions) => {
-        // console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        this.updateFiatDepositStatus('Payment approved!');
         actions.order.get().then(details => {
-          // console.log('onApprove - you can get full order details inside onApprove: ', details);
         });
       },
       onClientAuthorization: (data) => {
-        // console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         // Send data to server for update
         this.fiatSvc.processUserFiatDeposit(data.id, data.payer.email_address, data['purchase_units'][0].amount.value)
           .then(result => {
             this.showSuccess = true;
-            this.statusText = 'Payment successful!';
+            this.updateFiatDepositStatus('Payment successful!');
           })
           .catch(error => {
-            this.statusText = 'Payment error! Please try again.';
-          })
+            this.updateFiatDepositStatus('Payment error! Please try again.');
+          });
       },
       onCancel: (data, actions) => {
-        // console.log('OnCancel', data, actions);
-        this.statusText = 'Payment cancelled!';
+        this.updateFiatDepositStatus('Payment cancelled!');
       },
       onError: err => {
-        // console.log('OnError', err);
-        this.statusText = 'Payment error! Please try again.';
+        this.updateFiatDepositStatus('Payment error! Please try again.');
       },
       onClick: (data, actions) => {
-        // console.log('onClick', data, actions);
       },
     };
   }

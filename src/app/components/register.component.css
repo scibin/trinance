@@ -10,3 +10,7 @@
     word-wrap: normal;
     text-align: justify;
 }
+
+.errMsg {
+    background-color: white;
+}

@@ -12,4 +12,6 @@ export class GauthComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Didnt have time to implement this
+
 }

@@ -2,22 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import * as moment from "moment";
+import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { PROFILE } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccessService implements CanActivate {
 
-  baseURL = 'http://localhost:3000';
-
+  baseURL = environment.baseURL;
 
   // Source: https://www.reddit.com/r/Angular2/comments/76inse/noob_observable_on_change_of_value/
   private first_name: BehaviorSubject<string>;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.first_name = new BehaviorSubject<string>(localStorage.getItem("first_name") || 'user');
+    this.first_name = new BehaviorSubject<string>(localStorage.getItem('first_name') || 'user');
   }
 
   // Observable
@@ -27,13 +28,6 @@ export class AccessService implements CanActivate {
   // Function to emit new value of first name
   setNewFirstName(newValue: string) {
     this.first_name.next(newValue);
-  }
-
-  // !!! Delete when production ready!
-  test(): Promise<any> {
-    return(
-      this.http.get(`${this.baseURL}/testing`).toPromise()
-    );
   }
 
   // Perform user registration
@@ -62,6 +56,32 @@ export class AccessService implements CanActivate {
     );
   }
 
+  // Get user profile
+  getUserProfile(): Promise<any> {
+    // By default accepts json, but headers set just for the sake of meeting the assessment criteria
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json');
+    return(
+      this.http.get(`${this.baseURL}/api/user/profile`,  { headers }).toPromise()
+    );
+  }
+
+  // Update user profile
+  updateUserProfile(p: PROFILE): Promise<any> {
+      const params = new HttpParams()
+        .set('firstName', p.firstName)
+        .set('lastName', p.lastName)
+        .set('dob', (p.dob) ? p.dob.toString() : null)
+        .set('country', p.country ? p.country.toString() : null)
+        .set('phone', p.phone ? p.phone.toString() : null)
+        .set('mailPreferences', (p.mailPreferences) ? '1' : '0');
+      const headers = new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded');
+      return(
+        this.http.post(`${this.baseURL}/api/user/profile/update`, params.toString(), { headers }).toPromise()
+      );
+  }
+
   // Reference used for localStorage and HttpInterceptor:
   // https://blog.angular-university.io/angular-jwt-authentication/
   // Stores the JSON token in the local storage
@@ -75,10 +95,10 @@ export class AccessService implements CanActivate {
 
   // Removes the token from the local storage
   logout() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("expires_at");
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('expires_at');
     // Resets the display name
-    localStorage.removeItem("first_name");
+    localStorage.removeItem('first_name');
     // Update the display name
     this.setNewFirstName('user');
   }
@@ -94,15 +114,16 @@ export class AccessService implements CanActivate {
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem("expires_at");
-    const expiresAt = parseInt(expiration);
+    const expiration = localStorage.getItem('expires_at');
+    const expiresAt = parseInt(expiration, 10);
     return moment(expiresAt);
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (!this.isLoggedIn())
+    if (!this.isLoggedIn()) {
       this.router.navigate(['/login']);
-    return (this.isLoggedIn())
+    }
+    return (this.isLoggedIn());
   }
 
 }

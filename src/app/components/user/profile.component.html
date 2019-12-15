@@ -1,1 +1,66 @@
-<p>profile works!</p>
+<h1>Profile</h1>
+<hr>
+<form [formGroup]="profileForm" (ngSubmit)="updateFavourites()">
+    <table border="0">
+        <tr>
+            <th>First name: </th>
+            <th>
+                <mat-form-field>
+                    <input matInput placeholder="" type="text" formControlName="firstName">
+                </mat-form-field>
+            </th>
+        </tr>
+        <tr>
+            <th>Last name: </th>
+            <th>
+                <mat-form-field>
+                    <input matInput placeholder="" type="text" formControlName="lastName">
+                </mat-form-field>
+            </th>
+        </tr>
+        <tr>
+            <th>Date of birth: </th>
+            <th>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker"
+                    placeholder="Choose a date" formControlName="dob">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </th>
+        </tr>
+        <tr>
+            <th>Country: </th>
+            <th>
+                <mat-radio-group formControlName="country">
+                    <mat-radio-button class="example-margin" value='SG'><span>SG</span></mat-radio-button>
+                    <mat-radio-button class="example-margin" value='MY'><span>MY</span></mat-radio-button>
+                </mat-radio-group>
+            </th>
+        </tr>
+        <tr>
+            <th>Mobile number: </th>
+            <th>
+                <mat-form-field>
+                    <input matInput placeholder="" type="text" formControlName="phone">
+                </mat-form-field>
+            </th>
+        </tr>
+        <tr>
+            <div class='mailPreferences'><th>Mail preference: </th></div>
+            <th>
+                <mat-radio-group formControlName="mailPreferences" required>
+                    <mat-radio-button class="example-margin" value=1 checked><span>Send me email updates</span></mat-radio-button>
+                    <br>
+                    <mat-radio-button class="example-margin" value=0><span>Don't send me email updates</span></mat-radio-button>
+                </mat-radio-group>
+            </th>
+        </tr>
+    </table>
+    <br>
+    <button type="button" mat-stroked-button color="warn" (click)="toggleForm()">Edit profile</button>
+    <button mat-stroked-button color="primary" type="submit" 
+    [disabled]="profileForm.invalid || (!canEditForm)">Update profile</button>
+</form>
+
+{{ updateStatus }}

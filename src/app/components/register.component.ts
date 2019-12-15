@@ -21,8 +21,8 @@ export class RegisterComponent implements OnInit {
     this.accSvc.registerUser(form.value)
       .then(result => {
         // If registration is successful, go to login page
-        if (result.status == 0) {
-          this.router.navigate(['/login'])
+        if (result.status === 0) {
+          this.router.navigate(['/login']);
           form.reset();
         }
       })
