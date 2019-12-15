@@ -13,7 +13,6 @@ import { GauthComponent } from './components/gauth.component';
 import { AccessService } from './services/access.service';
 import { EthService } from './services/eth.service';
 import { MaterialModule } from './material.module';
-import { PrimeNgModule } from './primeng.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login.component';
@@ -49,7 +48,6 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    PrimeNgModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
